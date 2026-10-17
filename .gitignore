@@ -1,0 +1,6 @@
+node_modules/
+plugins/kp/runtime/node_modules/
+plugins/kp/runtime/browsers/
+.gallery/
+.DS_Store
+*.log

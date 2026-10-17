@@ -1,0 +1,18 @@
+{
+  "id": "split-quote",
+  "name": "Split Quote",
+  "order": 60,
+  "description": "A client review: the portrait fills the left 42%, and a tone panel on the right carries a large quotation mark, the italic quote, stars, the client's name and a detail line.",
+  "bestFor": ["client review with their photo", "testimonial carousel slide"],
+  "photos": 1,
+  "photoTip": "Portrait photos work best; the frame is tall and narrow. Set the focus on the faces.",
+  "tones": { "recommended": ["sand", "cream", "sage", "rosette"], "note": "All six tones work." },
+  "fields": [
+    { "key": "photo", "kind": "photo", "label": "Photo" },
+    { "key": "quote", "kind": "text", "label": "Quote", "hint": "Their words. Shrinks to fit; around 80 characters reads best, up to about 200.", "maxLength": 200 },
+    { "key": "stars", "kind": "stars", "label": "Stars", "hint": "0 to 5. 0 hides the stars.", "optional": true },
+    { "key": "name", "kind": "text", "label": "Client name", "maxLength": 34 },
+    { "key": "detail", "kind": "text", "label": "Detail", "hint": "Optional: occasion, place or year, such as 'Newborn session · 2026'.", "maxLength": 40, "optional": true }
+  ],
+  "sample": { "photo": { "src": "family-standing-by-lake.jpg", "focusX": 70 }, "quote": "Every photo feels like a memory I didn't know I had.", "stars": 5, "name": "Maya & Jonah", "detail": "Family session · Spring 2026" }
+}

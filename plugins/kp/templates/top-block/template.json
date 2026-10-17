@@ -1,0 +1,16 @@
+{
+  "id": "top-block",
+  "name": "Top Block",
+  "order": 30,
+  "description": "A solid tone header with a small capitals eyebrow and a large serif headline, and a framed photo inset below with a margin all round.",
+  "bestFor": ["series or theme announcement", "first slide of a gallery carousel", "a photo that shouldn't have words on it"],
+  "photos": 1,
+  "photoTip": "The photo is shown in full inside a frame, so any photo works; portrait photos fill the frame best.",
+  "tones": { "recommended": ["cream", "sand", "sage", "balsam"], "note": "All six tones work." },
+  "fields": [
+    { "key": "eyebrow", "kind": "text", "label": "Eyebrow", "hint": "Optional small capitals line above the headline.", "maxLength": 34, "optional": true },
+    { "key": "headline", "kind": "text", "label": "Headline", "hint": "One line. Put the italic word between asterisks: Warm *rooms*", "maxLength": 22 },
+    { "key": "photo", "kind": "photo", "label": "Photo" }
+  ],
+  "sample": { "photo": "time-together-on-the-couch.jpg", "eyebrow": "— The Home Series", "headline": "Warm *rooms*" }
+}

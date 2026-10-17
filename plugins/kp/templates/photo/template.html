@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Photo</title>
+<link rel="stylesheet" href="../_kp/brand.css">
+<script src="../_kp/kp.js"></script>
+<style>
+  /* Photo: just the photo, edge to edge. For the picture slides of a carousel. */
+  .photo-slide { background: var(--tone-bg); }
+  .photo-slide .note {
+    left: var(--kp-corner); bottom: 52px; max-width: calc(100% - 2 * var(--kp-corner));
+    font-size: 26px; font-weight: 500; letter-spacing: 1px; white-space: nowrap;
+  }
+  html[data-aspect="nine-sixteen"] .photo-slide .note { bottom: 220px; }
+</style>
+</head>
+<body>
+<main class="kp-slide photo-slide" data-tone="cream">
+  <img class="kp-photo kp-fill" data-field="photo" src="" alt="" style="--focus-x: 50%; --focus-y: 40%; --zoom: 1;">
+  <p class="kp-abs kp-on-photo-small note" data-field="note" data-optional></p>
+</main>
+</body>
+</html>

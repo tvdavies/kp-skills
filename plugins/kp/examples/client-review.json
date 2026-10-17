@@ -1,0 +1,11 @@
+{
+  "title": "Client review",
+  "about": "A single-image review post using the client's photo.",
+  "slides": [
+    {
+      "template": "photo-overlay",
+      "tone": "sand",
+      "values": { "photo": { "src": "time-together-on-the-couch.jpg", "focusY": 30 }, "stars": 5, "label": "Five stars", "quote": "She was so calm with the little ones. We'll treasure these forever.", "name": "Hannah, Isla & Theo", "detail": "At-home session · 2026" }
+    }
+  ]
+}

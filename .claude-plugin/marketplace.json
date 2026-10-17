@@ -1,0 +1,15 @@
+{
+  "name": "kp-skills",
+  "description": "Claude skills for Kirsten Photography: on-brand Instagram and Facebook posts and carousels, made on the Mac.",
+  "owner": {
+    "name": "Tom Davies",
+    "url": "https://github.com/tvdavies"
+  },
+  "plugins": [
+    {
+      "name": "kp",
+      "source": "./plugins/kp",
+      "description": "Make Kirsten Photography post images and carousels from brand templates, and create new templates, by asking Claude."
+    }
+  ]
+}

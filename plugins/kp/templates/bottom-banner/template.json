@@ -1,0 +1,16 @@
+{
+  "id": "bottom-banner",
+  "name": "Bottom Banner",
+  "order": 20,
+  "description": "The photo fills the top two-thirds; a solid tone banner along the bottom carries a headline (plain words, then an italic tail) and a short line.",
+  "bestFor": ["new gallery or blog post", "booking announcement", "carousel cover"],
+  "photos": 1,
+  "photoTip": "Keep the subject in the top half; the bottom third is cropped by the banner.",
+  "tones": { "recommended": ["sand", "cream", "rosette", "sage"], "note": "All six tones work; the banner is the tone colour." },
+  "fields": [
+    { "key": "photo", "kind": "photo", "label": "Photo" },
+    { "key": "headline", "kind": "text", "label": "Headline", "hint": "One line. Put the italic part between asterisks: New work *is live.*", "maxLength": 34 },
+    { "key": "caption", "kind": "text", "label": "Caption", "hint": "Optional supporting line, up to two lines.", "maxLength": 80, "optional": true }
+  ],
+  "sample": { "photo": "couple-stands-together-on-grass.jpg", "headline": "New work *is live.*", "caption": "Full gallery: link in bio" }
+}

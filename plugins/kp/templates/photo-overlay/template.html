@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Photo Overlay</title>
+<link rel="stylesheet" href="../_kp/brand.css">
+<script src="../_kp/kp.js"></script>
+<style>
+  /* Photo Overlay: full-bleed photo, a rating pill top-left, a tilted quote card along the bottom. */
+  .photo-overlay { background: #000; }
+  .photo-overlay .pill { left: var(--kp-corner); top: var(--kp-corner); height: 56px; padding: 0 24px 0 22px; gap: 14px; background: rgba(255, 255, 255, 0.94); letter-spacing: 3px; font-size: 24px; text-transform: none; }
+  .photo-overlay .pill .kp-stars { font-size: 22px; gap: 3px; }
+  .photo-overlay .card {
+    position: absolute; left: 64px; right: 64px; bottom: 96px; height: 364px;
+    transform: rotate(var(--kp-tilt-card));
+    background: var(--tone-bg); color: var(--tone-ink);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  }
+  .photo-overlay .quote { left: var(--kp-card-pad); right: var(--kp-card-pad); top: 44px; height: 190px; line-height: 1.08; letter-spacing: -0.015em; }
+  .photo-overlay .name { left: var(--kp-card-pad); bottom: 60px; max-width: 480px; font-size: 24px; overflow: hidden; text-overflow: ellipsis; }
+  .photo-overlay .detail { right: var(--kp-card-pad); bottom: 62px; max-width: 360px; font-size: 20px; opacity: 0.65; text-align: right; }
+
+  html[data-aspect="landscape"] .photo-overlay .card { left: 300px; right: 56px; bottom: 48px; height: 300px; }
+  html[data-aspect="landscape"] .photo-overlay .quote { height: 150px; top: 36px; }
+  html[data-aspect="landscape"] .photo-overlay .name { bottom: 44px; }
+  html[data-aspect="landscape"] .photo-overlay .detail { bottom: 46px; }
+  html[data-aspect="nine-sixteen"] .photo-overlay .card { bottom: 260px; }
+  html[data-aspect="nine-sixteen"] .photo-overlay .pill { top: 150px; }
+</style>
+</head>
+<body>
+<main class="kp-slide photo-overlay" data-tone="cream">
+  <img class="kp-photo kp-fill" data-field="photo" src="" alt="" style="--focus-x: 50%; --focus-y: 35%; --zoom: 1;">
+  <div class="kp-scrim-ends"></div>
+  <div class="kp-abs kp-pill pill">
+    <span class="kp-stars" data-field="stars" data-stars="5"></span>
+    <span data-field="label" data-optional>Five stars</span>
+  </div>
+  <div class="card">
+    <blockquote class="kp-abs kp-display quote" data-field="quote" data-fit="36 60" data-fit-landscape="28 46" data-valign="top">Worth every frame. We'll keep these forever.</blockquote>
+    <p class="kp-abs kp-name name" data-field="name">Priya &amp; Sam</p>
+    <p class="kp-abs kp-detail detail" data-field="detail" data-optional>Engagement · 2026</p>
+  </div>
+</main>
+</body>
+</html>

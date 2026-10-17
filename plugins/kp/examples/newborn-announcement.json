@@ -1,0 +1,17 @@
+{
+  "title": "Newborn sessions",
+  "about": "A three-slide carousel announcing newborn sessions: framed cover, a photo, then a split review.",
+  "slides": [
+    {
+      "template": "top-block",
+      "tone": "rosette",
+      "values": { "photo": "baby-s-feet.jpg", "eyebrow": "— Newborn sessions", "headline": "Tiny *toes*" }
+    },
+    { "template": "hero-quote", "tone": "cream", "values": { "photo": { "src": "time-together-on-the-couch.jpg", "focusX": 55 }, "headline": "The first weeks go so fast.", "line": "Book from 32 weeks" } },
+    {
+      "template": "split-quote",
+      "tone": "sand",
+      "values": { "photo": { "src": "time-together-on-the-couch.jpg", "focusX": 72, "focusY": 30 }, "quote": "Relaxed, gentle and so patient. The photos made me cry happy tears.", "stars": 5, "name": "Amira & Josh", "detail": "Newborn session · 2026" }
+    }
+  ]
+}

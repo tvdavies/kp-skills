@@ -1,0 +1,11 @@
+{
+  "id": "blank-canvas",
+  "name": "Blank Canvas",
+  "order": 100,
+  "description": "An empty tone background for building a one-off layout by asking Claude, using the brand's fonts, colours and pieces.",
+  "bestFor": ["anything the other templates can't do", "trying out a new idea before saving it as a template"],
+  "photos": 0,
+  "tones": { "recommended": ["cream", "sand", "rosette", "sage", "balsam", "sienna"] },
+  "fields": [],
+  "sample": {}
+}

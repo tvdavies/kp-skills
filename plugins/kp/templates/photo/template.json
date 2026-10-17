@@ -1,0 +1,15 @@
+{
+  "id": "photo",
+  "name": "Photo",
+  "order": 5,
+  "description": "Just the photo, edge to edge, cropped to the post shape, with an optional small white note in the bottom-left corner. New in kp-skills; not in the old app.",
+  "bestFor": ["the picture slides of a carousel", "a single photo post cropped to the right shape"],
+  "photos": 1,
+  "photoTip": "Set the focus so the important part stays in the crop; landscape photos lose their sides in 4:5.",
+  "tones": { "recommended": ["cream"], "note": "The tone only shows if the photo is missing." },
+  "fields": [
+    { "key": "photo", "kind": "photo", "label": "Photo" },
+    { "key": "note", "kind": "text", "label": "Note", "hint": "Optional small white text, bottom-left. Usually left empty.", "maxLength": 40, "optional": true }
+  ],
+  "sample": { "photo": "boy-under-a-leaf-blanket.jpg", "note": "" }
+}

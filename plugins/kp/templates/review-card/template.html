@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Review Card</title>
+<link rel="stylesheet" href="../_kp/brand.css">
+<script src="../_kp/kp.js"></script>
+<style>
+  /* Review Card: type only. Eyebrow, stars, a big italic quote, then the client and a signature. */
+  .review-card .eyebrow { left: var(--kp-margin-type); right: var(--kp-margin-type); top: 100px; font-size: 24px; opacity: 0.6; }
+  .review-card .stars { left: var(--kp-margin-type); top: 180px; font-size: 38px; }
+  .review-card .quote {
+    left: var(--kp-margin-type); right: var(--kp-margin-type); top: 274px; bottom: 290px;
+    line-height: 1.1; letter-spacing: -0.02em;
+  }
+  .review-card .rule { left: var(--kp-margin-type); bottom: 226px; }
+  .review-card .name { left: var(--kp-margin-type); bottom: 168px; width: 560px; font-size: 28px; }
+  .review-card .detail { left: var(--kp-margin-type); bottom: 128px; width: 560px; }
+  .review-card .signature { right: var(--kp-margin-type); bottom: 128px; max-width: 360px; text-align: right; }
+
+  html[data-aspect="square"] .review-card .eyebrow { top: 80px; }
+  html[data-aspect="square"] .review-card .stars { top: 140px; }
+  html[data-aspect="square"] .review-card .quote { top: 220px; bottom: 250px; }
+  html[data-aspect="square"] .review-card .rule { bottom: 196px; }
+  html[data-aspect="square"] .review-card .name { bottom: 138px; }
+  html[data-aspect="square"] .review-card .detail,
+  html[data-aspect="square"] .review-card .signature { bottom: 98px; }
+  html[data-aspect="nine-sixteen"] .review-card .eyebrow { top: 220px; }
+  html[data-aspect="nine-sixteen"] .review-card .stars { top: 300px; }
+  html[data-aspect="nine-sixteen"] .review-card .quote { top: 400px; bottom: 480px; }
+  html[data-aspect="nine-sixteen"] .review-card .rule { bottom: 416px; }
+  html[data-aspect="nine-sixteen"] .review-card .name { bottom: 358px; }
+  html[data-aspect="nine-sixteen"] .review-card .detail,
+  html[data-aspect="nine-sixteen"] .review-card .signature { bottom: 318px; }
+  html[data-aspect="landscape"] .review-card .eyebrow { top: 56px; }
+  html[data-aspect="landscape"] .review-card .stars { top: 100px; font-size: 30px; }
+  html[data-aspect="landscape"] .review-card .quote { top: 160px; bottom: 170px; }
+  html[data-aspect="landscape"] .review-card .rule { bottom: 136px; }
+  html[data-aspect="landscape"] .review-card .name { bottom: 92px; font-size: 24px; }
+  html[data-aspect="landscape"] .review-card .detail { bottom: 62px; font-size: 20px; }
+  html[data-aspect="landscape"] .review-card .signature { bottom: 64px; font-size: 30px; }
+</style>
+</head>
+<body>
+<main class="kp-slide review-card" data-tone="cream">
+  <p class="kp-abs kp-eyebrow eyebrow" data-field="eyebrow" data-optional>— Kind words</p>
+  <div class="kp-abs kp-stars stars" data-field="stars" data-stars="5" data-optional></div>
+  <blockquote class="kp-abs kp-display quote" data-field="quote" data-fit="44 76" data-fit-landscape="30 52" data-valign="top">She made our nervous family feel like the most photogenic people alive.</blockquote>
+  <div class="kp-abs kp-rule rule"></div>
+  <p class="kp-abs kp-name name" data-field="name">The Alvarez family</p>
+  <p class="kp-abs kp-detail detail" data-field="detail" data-optional>Autumn portraits · 2025</p>
+  <p class="kp-abs kp-signature signature" data-field="signature" data-optional>Kirsten x</p>
+</main>
+</body>
+</html>

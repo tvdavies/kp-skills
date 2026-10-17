@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Sticker Card</title>
+<link rel="stylesheet" href="../_kp/brand.css">
+<script src="../_kp/kp.js"></script>
+<style>
+  /* Sticker Card: full-bleed photo, a tilted tone "sticker" with an intro, a pill and a call to action. */
+  .sticker-card { background: #000; }
+  .sticker-card .pill { left: var(--kp-corner); top: var(--kp-corner); }
+  .sticker-card .sticker {
+    position: absolute; left: var(--kp-margin); bottom: 96px; width: 780px; height: 404px;
+    transform: rotate(var(--kp-tilt-sticker)); transform-origin: 50% 50%;
+    background: var(--tone-bg); color: var(--tone-ink);
+    box-shadow: var(--kp-card-shadow);
+  }
+  .sticker-card .headline {
+    left: var(--kp-card-pad); top: 40px; width: 676px; height: 200px;
+    line-height: 0.95; letter-spacing: -0.02em;
+  }
+  .sticker-card .caption {
+    left: var(--kp-card-pad); top: 264px; width: 676px; height: 96px;
+    font-size: 32px; line-height: 1.35; opacity: 0.8;
+  }
+  .sticker-card .cta {
+    right: var(--kp-corner); bottom: 52px; max-width: 420px;
+    font-size: 28px; font-weight: 500; letter-spacing: 2px; text-align: right; white-space: nowrap;
+  }
+
+  html[data-aspect="landscape"] .sticker-card .sticker { bottom: 64px; transform: rotate(var(--kp-tilt-sticker)) scale(0.78); transform-origin: 0 100%; }
+  html[data-aspect="landscape"] .sticker-card .cta { bottom: 40px; font-size: 24px; }
+  html[data-aspect="nine-sixteen"] .sticker-card .sticker { bottom: 260px; }
+  html[data-aspect="nine-sixteen"] .sticker-card .cta { bottom: 200px; }
+  html[data-aspect="nine-sixteen"] .sticker-card .pill { top: 150px; }
+</style>
+</head>
+<body>
+<main class="kp-slide sticker-card" data-tone="cream">
+  <img class="kp-photo kp-fill" data-field="photo" src="" alt="" style="--focus-x: 50%; --focus-y: 30%; --zoom: 1;">
+  <p class="kp-abs kp-pill pill" data-field="label" data-optional>✶ Behind the lens</p>
+  <div class="sticker">
+    <h1 class="kp-abs kp-display headline" data-field="headline" data-fit="52 96" data-valign="top">Hi,<br>I'm Kirsten.</h1>
+    <p class="kp-abs caption" data-field="caption" data-optional>Families, newborns and<br>everyday moments.</p>
+  </div>
+  <p class="kp-abs kp-on-photo-small cta" data-field="cta" data-optional>Say hello →</p>
+</main>
+</body>
+</html>

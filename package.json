@@ -1,0 +1,14 @@
+{
+  "name": "kp-skills",
+  "private": true,
+  "description": "Development scripts for the kp-skills Claude plugin marketplace. Kirsten never needs these.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "setup:dev": "cd plugins/kp/runtime && npm ci --no-audit --no-fund && PLAYWRIGHT_BROWSERS_PATH=$PWD/browsers npx --no-install playwright install --only-shell chromium",
+    "test": "node --test --test-concurrency=1 tests/",
+    "gallery": "node plugins/kp/scripts/kp.mjs gallery --out .gallery --sizes all",
+    "doctor": "node plugins/kp/scripts/doctor.mjs",
+    "validate": "claude plugin validate . && claude plugin validate plugins/kp"
+  }
+}

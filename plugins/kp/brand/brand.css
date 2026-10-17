@@ -1,0 +1,318 @@
+/*
+ * KP brand tokens and building blocks.
+ *
+ * Every template links this file. It is copied into each post's `_kp/`
+ * folder when the post is created, so a post keeps rendering the same way
+ * even after the plugin updates.
+ *
+ * Values come from Tom's kp-templates app (src/templates/tones.ts and the
+ * scene factories in src/templates/*). See brand-guide.md for the rules
+ * behind them. Sizes are in pixels on the design canvas (1080 wide for
+ * every size except the 1.91:1 landscape, which is designed at 1200 wide).
+ */
+
+/* Extra fonts added to a post with `kp.mjs add-font` land in this file. */
+@import url("fonts-extra.css");
+
+/* ------------------------------------------------------------------ */
+/* Fonts: bundled, OFL-licensed, no network needed.                    */
+/* ------------------------------------------------------------------ */
+
+@font-face { font-family: "Poppins"; font-style: normal; font-weight: 300; font-display: block; src: url("fonts/poppins/Poppins-Light.ttf") format("truetype"); }
+@font-face { font-family: "Poppins"; font-style: normal; font-weight: 400; font-display: block; src: url("fonts/poppins/Poppins-Regular.ttf") format("truetype"); }
+@font-face { font-family: "Poppins"; font-style: italic; font-weight: 400; font-display: block; src: url("fonts/poppins/Poppins-Italic.ttf") format("truetype"); }
+@font-face { font-family: "Poppins"; font-style: normal; font-weight: 500; font-display: block; src: url("fonts/poppins/Poppins-Medium.ttf") format("truetype"); }
+@font-face { font-family: "Poppins"; font-style: italic; font-weight: 500; font-display: block; src: url("fonts/poppins/Poppins-MediumItalic.ttf") format("truetype"); }
+@font-face { font-family: "Poppins"; font-style: normal; font-weight: 600; font-display: block; src: url("fonts/poppins/Poppins-SemiBold.ttf") format("truetype"); }
+@font-face { font-family: "Poppins"; font-style: italic; font-weight: 600; font-display: block; src: url("fonts/poppins/Poppins-SemiBoldItalic.ttf") format("truetype"); }
+@font-face { font-family: "Poppins"; font-style: normal; font-weight: 700; font-display: block; src: url("fonts/poppins/Poppins-Bold.ttf") format("truetype"); }
+@font-face { font-family: "Lora"; font-style: normal; font-weight: 400 700; font-display: block; src: url("fonts/lora/Lora%5Bwght%5D.ttf") format("truetype"); }
+@font-face { font-family: "Lora"; font-style: italic; font-weight: 400 700; font-display: block; src: url("fonts/lora/Lora-Italic%5Bwght%5D.ttf") format("truetype"); }
+
+/* ------------------------------------------------------------------ */
+/* Tokens                                                              */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* Palette: the six slide tones plus ink. */
+  --kp-cream: #F3EBDE;    /* Silk Scarf cream: paper, the default ground */
+  --kp-sand: #E4D3BE;     /* Sand: warm neutral support */
+  --kp-rosette: #C98871;  /* Rosette: dusty coral, the accent */
+  --kp-sage: #A6B49A;
+  --kp-balsam: #5E6E5C;
+  --kp-sienna: #B56B4A;
+  --kp-ink: #3A2E27;      /* warm near-black: all dark type */
+  --kp-white: #FFFFFF;
+
+  /* Type families. Fallbacks only matter if a font file is missing. */
+  --kp-sans: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  --kp-serif: "Lora", Georgia, "Times New Roman", serif;
+
+  /* Type scale (design px). */
+  --kp-eyebrow-size: 28px;       /* 24 on type-only slides, 30 on headers */
+  --kp-eyebrow-weight: 600;
+  --kp-eyebrow-tracking: 6px;
+  --kp-eyebrow-opacity: 0.65;
+  --kp-display-weight: 500;      /* Lora italic headlines and quotes */
+  --kp-display-leading: 1.02;
+  --kp-display-tracking: -0.02em;
+  --kp-headline-weight: 600;     /* Poppins headlines */
+  --kp-headline-leading: 0.98;
+  --kp-headline-tracking: -0.032em;
+  --kp-body-size: 32px;
+  --kp-body-leading: 1.32;
+  --kp-body-opacity: 0.78;
+  --kp-name-size: 26px;          /* client names */
+  --kp-name-weight: 600;
+  --kp-detail-size: 22px;        /* occasion, place, year */
+  --kp-detail-opacity: 0.7;
+  --kp-signature-size: 34px;
+  --kp-signature-opacity: 0.75;
+  --kp-pill-size: 26px;
+  --kp-pill-tracking: 3px;
+
+  /* Spacing and safe margins (design px). */
+  --kp-margin: 72px;        /* standard outer margin for text and inset photos */
+  --kp-margin-type: 80px;   /* type-only slides */
+  --kp-margin-hero: 90px;   /* centred hero text over photos */
+  --kp-corner: 56px;        /* pills and small labels in corners */
+  --kp-card-pad: 52px;      /* inside cards and stickers */
+  --kp-safe: 64px;          /* never put text closer than this to an edge */
+
+  /* Shapes and effects. */
+  --kp-radius-pill: 999px;
+  --kp-radius-card: 0px;    /* cards and banners are square-cornered */
+  --kp-rule-width: 60px;
+  --kp-rule-height: 2px;
+  --kp-pill-bg: rgba(255, 255, 255, 0.92);
+  --kp-card-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  --kp-photo-shadow: 0 2px 12px rgba(0, 0, 0, 0.10);
+  --kp-tilt-sticker: -2.5deg;
+  --kp-tilt-card: -1.5deg;
+
+  /* Photo treatments: text never sits on a bare photo. */
+  --kp-wash: rgba(0, 0, 0, 0.35);
+  --kp-scrim-bottom: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.65) 100%);
+  --kp-scrim-ends: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.6) 100%);
+  --kp-text-shadow-photo: 0 2px 16px rgba(0, 0, 0, 0.35);
+  --kp-text-shadow-small: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Tones: each sets a ground, an ink, a softer support and a stripe colour.
+   Put data-tone on the slide; a card or banner can carry its own data-tone. */
+:root                 { --tone-bg: #F3EBDE; --tone-ink: #3A2E27; --tone-soft: #E4D3BE; --tone-stripe: #C9B79A; }
+[data-tone="cream"]   { --tone-bg: #F3EBDE; --tone-ink: #3A2E27; --tone-soft: #E4D3BE; --tone-stripe: #C9B79A; }
+[data-tone="sand"]    { --tone-bg: #E4D3BE; --tone-ink: #3A2E27; --tone-soft: #D4BFA3; --tone-stripe: #B8A285; }
+[data-tone="rosette"] { --tone-bg: #C98871; --tone-ink: #3A2017; --tone-soft: #D8A291; --tone-stripe: #B4725C; }
+[data-tone="sage"]    { --tone-bg: #A6B49A; --tone-ink: #2E3A2A; --tone-soft: #B7C2AC; --tone-stripe: #8FA083; }
+[data-tone="balsam"]  { --tone-bg: #5E6E5C; --tone-ink: #F3EBDE; --tone-soft: #7A8878; --tone-stripe: #4C5B4A; }
+[data-tone="sienna"]  { --tone-bg: #B56B4A; --tone-ink: #F3EBDE; --tone-soft: #C48364; --tone-stripe: #9A5938; }
+
+/* ------------------------------------------------------------------ */
+/* Page and slide                                                      */
+/* ------------------------------------------------------------------ */
+
+html, body { margin: 0; padding: 0; }
+html { background: #2a2623; }
+body { overflow: hidden; }
+
+.kp-slide {
+  position: relative;
+  width: var(--kp-w, 1080px);
+  height: var(--kp-h, 1350px);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--tone-bg);
+  color: var(--tone-ink);
+  font-family: var(--kp-sans);
+  font-kerning: normal;
+  font-synthesis: none;
+  hyphens: manual;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  transform-origin: 0 0;
+}
+.kp-slide * { box-sizing: border-box; }
+.kp-slide :where(h1, h2, h3, p, figure, blockquote, ul, ol) { margin: 0; padding: 0; font: inherit; }
+
+/* Everything inside a slide is positioned on the design canvas. */
+.kp-abs { position: absolute; }
+.kp-fill { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ------------------------------------------------------------------ */
+/* Photos                                                              */
+/* ------------------------------------------------------------------ */
+
+/*
+ * <img class="kp-photo" data-field="photo" src="photos/x.jpg"
+ *      style="--focus-x: 50%; --focus-y: 35%; --zoom: 1">
+ * focus-x / focus-y: the point of the photo that must stay in view
+ * (0% = left/top, 100% = right/bottom). zoom: 1 = just covers the frame.
+ */
+.kp-photo {
+  display: block;
+  object-fit: cover;
+  object-position: var(--focus-x, 50%) var(--focus-y, 40%);
+  transform: scale(var(--zoom, 1));
+  transform-origin: var(--focus-x, 50%) var(--focus-y, 40%);
+  background: var(--tone-soft);
+}
+.kp-photo-frame { overflow: hidden; }
+.kp-photo-frame > .kp-photo { width: 100%; height: 100%; }
+/* Empty photo slot: brand stripes so a missing photo is obvious but on brand. */
+.kp-photo-empty {
+  background: repeating-linear-gradient(135deg, var(--tone-soft) 0 18px, var(--tone-stripe) 18px 20px);
+}
+
+.kp-wash { position: absolute; inset: 0; background: var(--kp-wash); }
+.kp-scrim-bottom { position: absolute; inset: 0; background: var(--kp-scrim-bottom); }
+.kp-scrim-ends { position: absolute; inset: 0; background: var(--kp-scrim-ends); }
+
+/* ------------------------------------------------------------------ */
+/* Type roles                                                          */
+/* ------------------------------------------------------------------ */
+
+.kp-eyebrow {
+  font-family: var(--kp-sans);
+  font-size: var(--kp-eyebrow-size);
+  font-weight: var(--kp-eyebrow-weight);
+  letter-spacing: var(--kp-eyebrow-tracking);
+  text-transform: uppercase;
+  line-height: 1.2;
+  opacity: var(--kp-eyebrow-opacity);
+  white-space: nowrap;
+}
+.kp-display {
+  font-family: var(--kp-serif);
+  font-style: italic;
+  font-weight: var(--kp-display-weight);
+  line-height: var(--kp-display-leading);
+  letter-spacing: var(--kp-display-tracking);
+  text-wrap: balance;
+}
+.kp-serif {
+  font-family: var(--kp-serif);
+  font-style: normal;
+  font-weight: 500;
+}
+.kp-headline {
+  font-family: var(--kp-sans);
+  font-weight: var(--kp-headline-weight);
+  line-height: var(--kp-headline-leading);
+  letter-spacing: var(--kp-headline-tracking);
+  text-wrap: balance;
+}
+/* The mixed headline: sans words, then an italic serif tail in <em>. */
+.kp-headline em, .kp-mixed em {
+  font-family: var(--kp-serif);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.kp-body {
+  font-family: var(--kp-sans);
+  font-size: var(--kp-body-size);
+  font-weight: 400;
+  line-height: var(--kp-body-leading);
+  opacity: var(--kp-body-opacity);
+  text-wrap: pretty;
+}
+.kp-name {
+  font-family: var(--kp-sans);
+  font-size: var(--kp-name-size);
+  font-weight: var(--kp-name-weight);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.kp-detail {
+  font-family: var(--kp-sans);
+  font-size: var(--kp-detail-size);
+  font-weight: 400;
+  line-height: 1.3;
+  opacity: var(--kp-detail-opacity);
+  white-space: nowrap;
+}
+.kp-signature {
+  font-family: var(--kp-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--kp-signature-size);
+  line-height: 1.2;
+  opacity: var(--kp-signature-opacity);
+  white-space: nowrap;
+}
+
+/* Text sitting directly on a (washed or scrimmed) photo. */
+.kp-on-photo { text-shadow: var(--kp-text-shadow-photo); }
+.kp-on-photo-small { color: #fff; text-shadow: var(--kp-text-shadow-small); }
+
+/* ------------------------------------------------------------------ */
+/* Shapes                                                              */
+/* ------------------------------------------------------------------ */
+
+.kp-rule {
+  width: var(--kp-rule-width);
+  height: var(--kp-rule-height);
+  background: currentColor;
+  opacity: 0.5;
+}
+.kp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 60px;
+  padding: 0 26px;
+  border-radius: var(--kp-radius-pill);
+  background: var(--kp-pill-bg);
+  color: var(--kp-ink);
+  font-family: var(--kp-sans);
+  font-size: var(--kp-pill-size);
+  font-weight: 600;
+  letter-spacing: var(--kp-pill-tracking);
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+}
+.kp-card {
+  background: var(--tone-bg);
+  color: var(--tone-ink);
+  border-radius: var(--kp-radius-card);
+  box-shadow: var(--kp-card-shadow);
+}
+
+/* Star rating: kp.js draws data-stars="n" filled stars, 1em each. */
+.kp-stars { display: flex; align-items: center; gap: 0.16em; line-height: 1; }
+.kp-stars svg { width: 1em; height: 1em; display: block; fill: currentColor; }
+
+/* ------------------------------------------------------------------ */
+/* Fitting text                                                        */
+/* ------------------------------------------------------------------ */
+
+/*
+ * data-fit="min max" makes kp.js pick the largest font size that fits the
+ * element's box. data-fit-square="min max" (or -three-four, -nine-sixteen,
+ * -landscape) overrides it for one shape. data-valign="top|center|bottom".
+ */
+[data-fit] { display: flex; flex-direction: column; justify-content: safe center; overflow: hidden; }
+[data-fit][data-valign="top"] { justify-content: flex-start; }
+[data-fit][data-valign="bottom"] { justify-content: safe flex-end; }
+.kp-fit-body { display: block; width: 100%; }
+
+/* Optional fields disappear when left empty. */
+[data-optional][data-empty] { display: none !important; }
+
+/* Lines in data fields: kp.js leaves real line breaks (<br>) alone. */
+[data-field] { overflow-wrap: break-word; }
+
+/* ------------------------------------------------------------------ */
+/* Preview (opening a slide in a browser, not exporting)               */
+/* ------------------------------------------------------------------ */
+
+.kp-preview-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 40px;
+  display: flex; gap: 6px; align-items: center; justify-content: center;
+  font: 500 13px/1 -apple-system, "Helvetica Neue", Arial, sans-serif;
+  color: #e9e1d5; background: rgba(20, 18, 16, 0.85); z-index: 10;
+}
+.kp-preview-bar a { color: inherit; text-decoration: none; padding: 6px 10px; border-radius: 6px; }
+.kp-preview-bar a[aria-current="true"] { background: #e9e1d5; color: #2a2623; }

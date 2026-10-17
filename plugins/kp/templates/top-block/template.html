@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Top Block</title>
+<link rel="stylesheet" href="../_kp/brand.css">
+<script src="../_kp/kp.js"></script>
+<style>
+  /* Top Block: tone header with eyebrow and serif headline, framed photo below. */
+  .top-block .eyebrow { left: var(--kp-margin); right: var(--kp-margin); top: 80px; font-size: 30px; }
+  .top-block .headline {
+    left: var(--kp-margin); right: var(--kp-margin); top: 140px; height: 140px;
+    font-family: var(--kp-serif); font-weight: 500; line-height: 0.92; letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+  .top-block .headline em { font-weight: 400; letter-spacing: -0.03em; }
+  .top-block .photo {
+    left: var(--kp-margin); right: var(--kp-margin); top: 340px; bottom: var(--kp-margin);
+    box-shadow: var(--kp-photo-shadow);
+  }
+
+  html[data-aspect="square"] .top-block .eyebrow { top: 68px; }
+  html[data-aspect="square"] .top-block .headline { top: 118px; height: 124px; }
+  html[data-aspect="square"] .top-block .photo { top: 296px; }
+  html[data-aspect="nine-sixteen"] .top-block .eyebrow { top: 150px; }
+  html[data-aspect="nine-sixteen"] .top-block .headline { top: 214px; height: 160px; }
+  html[data-aspect="nine-sixteen"] .top-block .photo { top: 440px; bottom: 150px; }
+
+  /* Landscape: words on the left, photo on the right. */
+  html[data-aspect="landscape"] .top-block .eyebrow { right: auto; width: 440px; top: 200px; font-size: 24px; white-space: normal; }
+  html[data-aspect="landscape"] .top-block .headline { right: auto; width: 440px; top: 250px; height: 190px; white-space: normal; }
+  html[data-aspect="landscape"] .top-block .photo { left: 560px; top: 56px; bottom: 56px; right: 56px; }
+</style>
+</head>
+<body>
+<main class="kp-slide top-block" data-tone="cream">
+  <p class="kp-abs kp-eyebrow eyebrow" data-field="eyebrow" data-optional>— The Home Series</p>
+  <h1 class="kp-abs headline" data-field="headline" data-fit="58 132" data-fit-landscape="48 96" data-valign="top">Warm <em>rooms</em></h1>
+  <div class="kp-abs kp-photo-frame photo">
+    <img class="kp-photo" data-field="photo" src="" alt="" style="--focus-x: 50%; --focus-y: 40%; --zoom: 1;">
+  </div>
+</main>
+</body>
+</html>

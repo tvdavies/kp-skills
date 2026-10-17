@@ -1,0 +1,20 @@
+{
+  "title": "Autumn mini sessions",
+  "about": "A five-slide booking carousel: cover, three photos, then a review.",
+  "caption": "Autumn mini sessions are open 🍂 Twenty minutes, golden light and a gallery of your favourites. Limited dates; message me to book.",
+  "slides": [
+    {
+      "template": "diagonal-slab",
+      "tone": "cream",
+      "values": { "photo": { "src": "fall-photographer.jpg", "focusY": 30 }, "kicker": "Now booking", "headline": "Autumn\nminis.", "label": "Limited dates" }
+    },
+    { "template": "photo", "values": { "photo": "boy-under-a-leaf-blanket.jpg" } },
+    { "template": "photo", "values": { "photo": { "src": "family-standing-by-lake.jpg", "focusX": 68 } } },
+    { "template": "photo", "values": { "photo": { "src": "couple-stands-together-on-grass.jpg", "focusY": 70 } } },
+    {
+      "template": "review-card",
+      "tone": "sage",
+      "values": { "eyebrow": "— Kind words", "stars": 5, "quote": "Twenty minutes and we came away with the best photos we've ever had of the kids.", "name": "The Okafor family", "detail": "Autumn mini · 2025", "signature": "" }
+    }
+  ]
+}

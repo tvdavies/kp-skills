@@ -1,0 +1,13 @@
+{
+  "name": "kp",
+  "displayName": "Kirsten Photography posts",
+  "version": "0.1.0",
+  "description": "Make on-brand Instagram and Facebook post images and carousels from HTML templates, rendered on the Mac. Ask for a post, tweak it in plain English, and get finished images in Finder.",
+  "author": {
+    "name": "Tom Davies",
+    "url": "https://github.com/tvdavies"
+  },
+  "homepage": "https://github.com/tvdavies/kp-skills",
+  "repository": "https://github.com/tvdavies/kp-skills",
+  "keywords": ["instagram", "facebook", "social media", "photography", "templates", "carousel"]
+}

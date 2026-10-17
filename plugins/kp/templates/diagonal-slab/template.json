@@ -1,0 +1,17 @@
+{
+  "id": "diagonal-slab",
+  "name": "Diagonal Slab",
+  "order": 40,
+  "description": "A full-bleed photo with an angled tone slab cutting across the bottom-left corner (small capitals kicker and a bold headline), and a small pill label top-right.",
+  "bestFor": ["booking or offer announcement", "mini sessions", "bold carousel cover"],
+  "photos": 1,
+  "photoTip": "Keep faces out of the bottom-left third, which the slab covers.",
+  "tones": { "recommended": ["cream", "sand", "rosette", "sage"], "note": "All six tones work; the slab and pill are the tone colour." },
+  "fields": [
+    { "key": "photo", "kind": "photo", "label": "Photo" },
+    { "key": "kicker", "kind": "text", "label": "Kicker", "hint": "Optional small capitals above the headline.", "maxLength": 28, "optional": true },
+    { "key": "headline", "kind": "text", "label": "Headline", "hint": "Bold, one to three short lines. Use a new line where you want the break.", "maxLength": 32 },
+    { "key": "label", "kind": "text", "label": "Pill label", "hint": "Optional short label in the top-right pill, such as 'Limited dates' or 'Autumn 2026'. Not for social handles.", "maxLength": 18, "optional": true }
+  ],
+  "sample": { "photo": "fall-photographer.jpg", "kicker": "Now booking", "headline": "Autumn\nminis.", "label": "Limited dates" }
+}

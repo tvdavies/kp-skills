@@ -1,0 +1,18 @@
+{
+  "id": "sticker-card",
+  "name": "Sticker Card",
+  "order": 50,
+  "description": "A full-bleed photo with a slightly tilted tone 'sticker' card (italic serif headline and a short caption), a white pill label top-left and a small call to action bottom-right.",
+  "bestFor": ["introducing Kirsten", "behind the scenes", "a friendly hello post"],
+  "photos": 1,
+  "photoTip": "The sticker covers the bottom-left; keep faces in the top half. There is no wash on the photo, so pick one where the corners are calm.",
+  "tones": { "recommended": ["cream", "sand", "rosette", "sage"], "note": "All six tones work; the sticker is the tone colour." },
+  "fields": [
+    { "key": "photo", "kind": "photo", "label": "Photo" },
+    { "key": "label", "kind": "text", "label": "Pill label", "hint": "Optional short label top-left. Not for social handles.", "maxLength": 22, "optional": true },
+    { "key": "headline", "kind": "text", "label": "Headline", "hint": "Italic serif, one or two short lines.", "maxLength": 28 },
+    { "key": "caption", "kind": "text", "label": "Caption", "hint": "Optional, up to two short lines.", "maxLength": 60, "optional": true },
+    { "key": "cta", "kind": "text", "label": "Call to action", "hint": "Optional white text bottom-right.", "maxLength": 24, "optional": true }
+  ],
+  "sample": { "photo": "fall-photographer.jpg", "label": "✶ Behind the lens", "headline": "Hi,\nI'm Kirsten.", "caption": "Families, newborns and\neveryday moments.", "cta": "Say hello →" }
+}

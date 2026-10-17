@@ -1,0 +1,16 @@
+{
+  "id": "hero-quote",
+  "name": "Hero Quote",
+  "order": 10,
+  "description": "A full-bleed photo under a soft dark wash, with a big centred italic headline and a small capitals line beneath.",
+  "bestFor": ["carousel cover", "announcement", "a single strong photo with a few words"],
+  "photos": 1,
+  "photoTip": "Any strong frame works; the wash keeps the words readable. Faces in the middle third may sit behind the headline, so set the focus to move them.",
+  "tones": { "recommended": ["cream", "sand"], "note": "The tone colours the words. Use light tones (cream, sand) on photos." },
+  "fields": [
+    { "key": "photo", "kind": "photo", "label": "Photo" },
+    { "key": "headline", "kind": "text", "label": "Headline", "hint": "Short and evocative. Shrinks to fit; one to five words reads biggest.", "maxLength": 40 },
+    { "key": "line", "kind": "text", "label": "Small line", "hint": "Optional. Shown in capitals under the headline. Leave empty to hide.", "maxLength": 32, "optional": true }
+  ],
+  "sample": { "photo": "family-standing-by-lake.jpg", "headline": "Slow mornings.", "line": "Autumn family sessions" }
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Split Quote</title>
+<link rel="stylesheet" href="../_kp/brand.css">
+<script src="../_kp/kp.js"></script>
+<style>
+  /* Split Quote: portrait on the left, a tone panel on the right with the quote, stars and names. */
+  .split-quote { --col: 494px; --text-left: calc(100% - var(--col) - 68px); }
+  .split-quote .photo { left: 0; top: 0; bottom: 0; right: calc(var(--col) + 132px); }
+  .split-quote .mark {
+    left: var(--text-left); top: 66px; width: var(--col);
+    font-family: var(--kp-serif); font-style: italic; font-size: 120px; line-height: 1; opacity: 0.3;
+  }
+  .split-quote .quote {
+    left: var(--text-left); top: 166px; width: var(--col); height: 380px;
+    line-height: 1.18; letter-spacing: -0.01em;
+  }
+  .split-quote .stars { left: var(--text-left); bottom: 172px; font-size: 28px; }
+  .split-quote .name { left: var(--text-left); bottom: 120px; width: var(--col); overflow: hidden; text-overflow: ellipsis; }
+  .split-quote .detail { left: var(--text-left); bottom: 86px; width: var(--col); overflow: hidden; text-overflow: ellipsis; }
+
+  html[data-aspect="square"] .split-quote .quote { height: 440px; }
+  html[data-aspect="three-four"] .split-quote .quote { height: 560px; }
+  html[data-aspect="nine-sixteen"] .split-quote .mark { top: 220px; }
+  html[data-aspect="nine-sixteen"] .split-quote .quote { top: 330px; height: 820px; }
+  html[data-aspect="nine-sixteen"] .split-quote .stars { bottom: 332px; }
+  html[data-aspect="nine-sixteen"] .split-quote .name { bottom: 280px; }
+  html[data-aspect="nine-sixteen"] .split-quote .detail { bottom: 246px; }
+  html[data-aspect="landscape"] .split-quote { --col: 560px; }
+  html[data-aspect="landscape"] .split-quote .mark { top: 32px; font-size: 90px; }
+  html[data-aspect="landscape"] .split-quote .quote { top: 112px; height: 280px; }
+  html[data-aspect="landscape"] .split-quote .stars { bottom: 136px; font-size: 24px; }
+  html[data-aspect="landscape"] .split-quote .name { bottom: 92px; }
+  html[data-aspect="landscape"] .split-quote .detail { bottom: 60px; }
+</style>
+</head>
+<body>
+<main class="kp-slide split-quote" data-tone="sand">
+  <div class="kp-abs kp-photo-frame photo">
+    <img class="kp-photo" data-field="photo" src="" alt="" style="--focus-x: 50%; --focus-y: 40%; --zoom: 1;">
+  </div>
+  <div class="kp-abs mark" aria-hidden="true">“</div>
+  <blockquote class="kp-abs kp-display quote" data-field="quote" data-fit="32 56" data-fit-nine-sixteen="40 72" data-fit-landscape="28 44" data-valign="top">Every photo feels like a memory I didn't know I had.</blockquote>
+  <div class="kp-abs kp-stars stars" data-field="stars" data-stars="5" data-optional></div>
+  <p class="kp-abs kp-name name" data-field="name">Maya &amp; Jonah</p>
+  <p class="kp-abs kp-detail detail" data-field="detail" data-optional>Family session · Spring 2026</p>
+</main>
+</body>
+</html>

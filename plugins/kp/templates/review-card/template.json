@@ -1,0 +1,18 @@
+{
+  "id": "review-card",
+  "name": "Review Card",
+  "order": 70,
+  "description": "A type-only client review on a plain tone background: small capitals eyebrow, stars, a large italic quote, then a short rule, the client's name, a detail line and an italic signature.",
+  "bestFor": ["client review without a photo", "the words slide after a photo slide in a carousel"],
+  "photos": 0,
+  "tones": { "recommended": ["cream", "sand", "sage", "rosette", "balsam", "sienna"], "note": "All six tones work. Balsam and sienna use light text." },
+  "fields": [
+    { "key": "eyebrow", "kind": "text", "label": "Eyebrow", "hint": "Optional small capitals line at the top.", "maxLength": 30, "optional": true },
+    { "key": "stars", "kind": "stars", "label": "Stars", "hint": "0 to 5. 0 hides the stars.", "optional": true },
+    { "key": "quote", "kind": "text", "label": "Quote", "hint": "Their words. Shrinks to fit; up to about 260 characters.", "maxLength": 260 },
+    { "key": "name", "kind": "text", "label": "Client name", "maxLength": 34 },
+    { "key": "detail", "kind": "text", "label": "Detail", "hint": "Optional: occasion and year.", "maxLength": 36, "optional": true },
+    { "key": "signature", "kind": "text", "label": "Signature", "hint": "Optional italic sign-off on the right. Not for social handles.", "maxLength": 20, "optional": true }
+  ],
+  "sample": { "eyebrow": "— Kind words", "stars": 5, "quote": "She made our nervous family feel like the most photogenic people alive.", "name": "The Alvarez family", "detail": "Autumn portraits · 2025", "signature": "Kirsten x" }
+}

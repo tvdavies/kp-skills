@@ -1,0 +1,19 @@
+{
+  "id": "photo-overlay",
+  "name": "Photo Overlay",
+  "order": 80,
+  "description": "A client photo full-bleed with soft dark shading top and bottom, a white rating pill top-left, and a slightly tilted tone card along the bottom with the quote, name and detail.",
+  "bestFor": ["client review over their own photo", "shareable 'kind words' post"],
+  "photos": 1,
+  "photoTip": "The card covers the bottom quarter; keep faces in the top two-thirds.",
+  "tones": { "recommended": ["cream", "sand", "rosette", "sage"], "note": "All six tones work; the card is the tone colour." },
+  "fields": [
+    { "key": "photo", "kind": "photo", "label": "Photo" },
+    { "key": "stars", "kind": "stars", "label": "Stars", "hint": "0 to 5." },
+    { "key": "label", "kind": "text", "label": "Pill label", "hint": "Optional words beside the stars.", "maxLength": 14, "optional": true },
+    { "key": "quote", "kind": "text", "label": "Quote", "hint": "Their words. Shrinks to fit; up to about 120 characters.", "maxLength": 120 },
+    { "key": "name", "kind": "text", "label": "Client name", "maxLength": 30 },
+    { "key": "detail", "kind": "text", "label": "Detail", "hint": "Optional: occasion and year.", "maxLength": 28, "optional": true }
+  ],
+  "sample": { "photo": "family-at-cottesloe-beach.jpg", "stars": 5, "label": "Five stars", "quote": "Worth every frame. We'll keep these forever.", "name": "Priya & Sam", "detail": "Beach session · 2026" }
+}

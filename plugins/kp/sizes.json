@@ -1,0 +1,14 @@
+{
+  "note": "Output sizes. 'default: true' sizes are exported unless Kirsten asks for others. Keep in step with brand/kp.js. Sources: see skills/kp-post/reference/sizes.md.",
+  "sizes": [
+    { "id": "ig",           "name": "Instagram feed, 4:5 portrait",   "width": 1080, "height": 1350, "aspect": "four-five",    "designWidth": 1080, "designHeight": 1350, "folder": "Instagram",           "default": true },
+    { "id": "fb",           "name": "Facebook feed, 1:1 square",      "width": 1080, "height": 1080, "aspect": "square",       "designWidth": 1080, "designHeight": 1080, "folder": "Facebook",            "default": true },
+    { "id": "ig-square",    "name": "Instagram feed, 1:1 square",     "width": 1080, "height": 1080, "aspect": "square",       "designWidth": 1080, "designHeight": 1080, "folder": "Instagram square",    "default": false },
+    { "id": "ig-tall",      "name": "Instagram feed, 3:4 tall",       "width": 1080, "height": 1440, "aspect": "three-four",   "designWidth": 1080, "designHeight": 1440, "folder": "Instagram 3x4",       "default": false },
+    { "id": "ig-story",     "name": "Instagram story or reel cover, 9:16", "width": 1080, "height": 1920, "aspect": "nine-sixteen", "designWidth": 1080, "designHeight": 1920, "folder": "Instagram story", "default": false },
+    { "id": "ig-landscape", "name": "Instagram feed, 1.91:1 landscape", "width": 1080, "height": 566, "aspect": "landscape",    "designWidth": 1200, "designHeight": 629,  "folder": "Instagram landscape", "default": false },
+    { "id": "fb-portrait",  "name": "Facebook feed, 4:5 portrait",    "width": 1080, "height": 1350, "aspect": "four-five",    "designWidth": 1080, "designHeight": 1350, "folder": "Facebook 4x5",        "default": false },
+    { "id": "fb-story",     "name": "Facebook story, 9:16",           "width": 1080, "height": 1920, "aspect": "nine-sixteen", "designWidth": 1080, "designHeight": 1920, "folder": "Facebook story",      "default": false },
+    { "id": "fb-landscape", "name": "Facebook landscape or link, 1.91:1", "width": 1200, "height": 630, "aspect": "landscape",  "designWidth": 1200, "designHeight": 630,  "folder": "Facebook landscape",  "default": false }
+  ]
+}

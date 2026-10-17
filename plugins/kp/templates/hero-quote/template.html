@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Hero Quote</title>
+<link rel="stylesheet" href="../_kp/brand.css">
+<script src="../_kp/kp.js"></script>
+<style>
+  /* Hero Quote: full-bleed photo, dark wash, centred italic quote. */
+  .hero-quote { background: #000; }
+  .hero-quote .group {
+    position: absolute; left: var(--kp-margin-hero); right: var(--kp-margin-hero);
+    top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 44px;
+    color: var(--tone-bg); text-align: center;
+  }
+  .hero-quote .rule { width: 64px; opacity: 0.9; }
+  .hero-quote .headline { width: 100%; height: 280px; }
+  .hero-quote .line {
+    font-size: 34px; font-weight: 500; letter-spacing: 8px; text-transform: uppercase;
+    line-height: 1.2; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+  }
+  html[data-aspect="landscape"] .hero-quote .group { gap: 30px; }
+  html[data-aspect="landscape"] .hero-quote .headline { height: 230px; }
+  html[data-aspect="landscape"] .hero-quote .line { font-size: 28px; letter-spacing: 6px; }
+  html[data-aspect="nine-sixteen"] .hero-quote .headline { height: 400px; }
+</style>
+</head>
+<body>
+<main class="kp-slide hero-quote" data-tone="cream">
+  <img class="kp-photo kp-fill" data-field="photo" src="" alt="" style="--focus-x: 50%; --focus-y: 40%; --zoom: 1;">
+  <div class="kp-wash"></div>
+  <div class="group">
+    <div class="kp-rule rule"></div>
+    <h1 class="kp-display kp-on-photo headline" data-field="headline" data-fit="64 128" data-fit-landscape="48 96" data-fit-nine-sixteen="72 150">Slow mornings.</h1>
+    <p class="line" data-field="line" data-optional>Autumn family sessions</p>
+  </div>
+</main>
+</body>
+</html>

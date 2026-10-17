@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Diagonal Slab</title>
+<link rel="stylesheet" href="../_kp/brand.css">
+<script src="../_kp/kp.js"></script>
+<style>
+  /* Diagonal Slab: full-bleed photo, an angled tone slab bottom-left, a pill top-right. */
+  .diagonal-slab { background: #000; }
+  .diagonal-slab .slab {
+    position: absolute; left: 0; bottom: 0; width: 842px; height: 428px;
+    background: var(--tone-bg); color: var(--tone-ink);
+    clip-path: polygon(0 0, 100% 18%, 100% 100%, 0 100%);
+  }
+  .diagonal-slab .kicker {
+    left: 64px; top: 108px; width: 706px;
+    font-size: 30px; opacity: 0.7;
+  }
+  .diagonal-slab .headline {
+    left: 64px; top: 166px; width: 706px; height: 200px;
+    line-height: 0.95; letter-spacing: -0.035em;
+  }
+  .diagonal-slab .pill {
+    right: 56px; top: 56px; height: 64px; padding: 0 28px;
+    background: var(--tone-bg); color: var(--tone-ink);
+    font-size: 26px; letter-spacing: 3px;
+  }
+
+  html[data-aspect="landscape"] .diagonal-slab .slab { width: 700px; height: 380px; }
+  html[data-aspect="landscape"] .diagonal-slab .kicker { left: 56px; top: 96px; font-size: 24px; width: 580px; }
+  html[data-aspect="landscape"] .diagonal-slab .headline { left: 56px; top: 140px; width: 580px; height: 200px; }
+  /* Stories: a deeper slab keeps the words clear of the bottom app controls. */
+  html[data-aspect="nine-sixteen"] .diagonal-slab .slab { height: 600px; clip-path: polygon(0 0, 100% 13%, 100% 100%, 0 100%); }
+  html[data-aspect="nine-sixteen"] .diagonal-slab .pill { top: 150px; }
+</style>
+</head>
+<body>
+<main class="kp-slide diagonal-slab" data-tone="cream">
+  <img class="kp-photo kp-fill" data-field="photo" src="" alt="" style="--focus-x: 50%; --focus-y: 35%; --zoom: 1;">
+  <div class="kp-scrim-bottom"></div>
+  <div class="slab">
+    <p class="kp-abs kp-eyebrow kicker" data-field="kicker" data-optional>Now booking</p>
+    <h1 class="kp-abs kp-headline headline" data-field="headline" data-fit="52 96" data-fit-landscape="44 84" data-valign="top">Summer<br>portraits.</h1>
+  </div>
+  <p class="kp-abs kp-pill pill" data-field="label" data-optional>Limited dates</p>
+</main>
+</body>
+</html>
