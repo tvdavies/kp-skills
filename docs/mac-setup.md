@@ -76,8 +76,14 @@ The skills pre-approve their own `kp.mjs`, `doctor.mjs` and `setup.sh`
 commands for the message that starts them. On follow-up messages Claude
 may ask again: choose the option to **always allow** that command. The
 plugin's path includes its version, so after an update it may ask once
-more. Allow editing files in `KP Posts` too, and opening files (`open`) to
-show previews and exports.
+more. Allow editing files in `KP Posts` too, and `open` (used to show the
+preview in her browser if the Browser pane can't, and the exports folder in
+Finder).
+
+The live preview runs a small helper on this Mac (127.0.0.1 only). If
+macOS asks whether `node` may accept incoming network connections, choose
+**Deny**: the helper only needs connections from this Mac, which that
+setting doesn't block.
 
 If macOS asks whether Claude may access the Pictures folder, allow it.
 
@@ -96,6 +102,10 @@ or, with her own photos:
 
 > Make a carousel from these photos [drag them in] with a cover that says
 > "Autumn light".
+
+Claude shows the live preview in the Browser pane (Cmd+Shift+B shows the
+pane if it's hidden). Try **Comment** on it: click a word or a photo,
+type a note, then tell Claude "I've left some notes".
 
 Finished images appear in
 `~/Pictures/KP Posts/<date> <title>/exports/Instagram` and `…/Facebook`.

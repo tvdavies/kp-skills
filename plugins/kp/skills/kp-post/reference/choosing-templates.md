@@ -2,7 +2,8 @@
 
 Run `templates` for the up-to-date list, including any of Kirsten's own
 (hers come first and win when names clash). To see them all with sample
-content, run `gallery` and open the contact sheets.
+content, run `gallery`: it prints a preview address to show her, and check
+images for you.
 
 | Template | Looks like | Use it for |
 | --- | --- | --- |

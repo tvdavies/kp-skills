@@ -40,17 +40,20 @@ any template HTML.
    `html[data-aspect="square"]` rules for anything that needs to move.
 2. Preview with real-length words, then try it with **short and long**
    words (`fill` the scratch slide with a one-word headline, then a long
-   one) and with **a landscape and a portrait photo**. Look at the contact
-   sheets each time. Fitted text (`data-fit`) must stay readable at its
+   one) and with **a landscape and a portrait photo**. Read the check
+   images `preview` lists each time. Fitted text (`data-fit`) must stay readable at its
    minimum.
-3. Check the optional sizes too (`preview "<post>" --sizes all`): they don't
+3. Check the optional sizes too (`preview "<post>" --sizes all`, then
+   `preview "<post>"` again to put her page back to the default sizes): they don't
    need to be perfect, but nothing should overlap or fall off the slide. Add
    `html[data-aspect="..."]` fixes where needed.
 4. Save it, then prove it works as a template: make a fresh post, `add` the
    new template by id with sample values, preview both default sizes, and
    check no problems are reported.
-5. Show Kirsten the contact sheet (`open "<path>"`) and tell her its name so
-   she can ask for it next time.
+5. Show Kirsten the scratch post's live preview (as in the kp-post skill:
+   Browser pane, or `open "<address>"`). She can leave notes on it with
+   **Comment**; read them with `notes`. Tell her the template's name so she
+   can ask for it next time.
 
 ## template.json
 

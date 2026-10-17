@@ -6,8 +6,13 @@ images and carousels, made on the Mac by asking Claude in Claude Desktop's
 
 Kirsten asks for a post in plain English ("a carousel of the Smith session
 with *Autumn light* on the cover"). Claude picks a template, fills in her
-words and photos, renders previews on the Mac, checks them, and exports the
-finished images to Finder:
+words and photos, checks the layout, and shows her a **live preview page**
+in Claude Desktop's Browser pane (or her browser). The page shows every
+slide straight from its HTML at the exact output sizes and updates itself as
+Claude makes changes. She can switch on **Comment**, click something on a
+slide (or select words) and leave a note; Claude reads the notes, makes the
+changes and marks them done. When she's happy, Claude exports the finished
+images to Finder:
 
 - **Instagram 4:5**, 1080×1350, and **Facebook square**, 1080×1080, by default
 - stories, 3:4 and landscape sizes only when she asks
@@ -70,8 +75,27 @@ replaces it.
 
 ```
 ~/Pictures/KP Posts/2026-10-17 Smith family autumn/
-  photos/  slides/  previews/  exports/Instagram/  exports/Facebook/  _kp/  post.json
+  photos/  slides/  preview.html  notes.json  exports/Instagram/  exports/Facebook/
+  _kp/  post.json  .check/ (Claude's check images)
 ```
+
+### Live preview and notes
+
+`kp.mjs preview <post>` writes the post's `preview.html` and starts a small
+preview server from `kp.mjs` in the background on 127.0.0.1 (a free port;
+it stops after four idle hours). The server serves only the posts folder,
+answers only `127.0.0.1`/`localhost` host names, and accepts note writes
+only from its own origin. It keeps a "KP preview" entry in
+`KP Posts/.claude/launch.json` so the Desktop Browser pane can attach to
+it. Notes are saved to `<post>/notes.json`; `kp.mjs notes` and
+`kp.mjs resolve` read and close them. Only `export` makes images for
+Kirsten. `preview` also lays the slides out headlessly to report problems,
+with check images in the hidden `.check/` folder for Claude to look at.
+
+This is built locally rather than with Claude artifacts: a published
+artifact would need every photo embedded under a size cap and uploaded to
+claude.ai, and its comment-to-session loop is documented only for
+Team/Enterprise sharing.
 
 Each post keeps its own copy of the brand files and fonts in `_kp/`, so a
 plugin update never changes a post that's already made.
@@ -81,7 +105,7 @@ plugin update never changes a post that's already made.
 ```bash
 npm run setup:dev     # pinned Playwright + Chromium into plugins/kp/runtime
 npm test              # 40 tests; the rendering tests need setup:dev
-npm run gallery       # every template at every size into .gallery/
+npm run gallery       # every template at every size into .gallery/ (check images in .check/)
 npm run doctor
 npm run validate      # claude plugin validate
 node plugins/kp/scripts/kp.mjs help

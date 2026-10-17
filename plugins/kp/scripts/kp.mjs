@@ -2,7 +2,6 @@
 // kp: make Kirsten Photography post images from HTML templates.
 // Run `node kp.mjs help` for the commands. Skills call this; people rarely need to.
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
 import {
   PLUGIN_ROOT, TEMPLATES_DIR, postsRoot, myTemplatesDir, resolvePost, readJson, writeJson, slugify, UserError,
@@ -15,6 +14,8 @@ import {
 import { loadSizes } from './lib/render.mjs';
 import { renderPost } from './lib/output.mjs';
 import { addFontToPost, bundledFamilies, myFonts } from './lib/fonts.mjs';
+import { writePreviewPage, ensureServer, stopServer, serve, previewUrl, ensureLaunchConfig } from './lib/preview.mjs';
+import { openNotes, readNotes, setStatus, describeNotes } from './lib/notes.mjs';
 
 const HELP = `kp: Kirsten Photography post maker
 
@@ -32,14 +33,20 @@ Posts folder: ${postsRoot()}
   move <post> <slide> <to>               reorder
   duplicate <post> <slide>
   remove <post> <slide>                  moves it to "removed slides" (not deleted)
-  preview <post> [--sizes ig,fb] [--slides 1,3]
+  preview <post> [--sizes ig,fb] [--no-check]
+                                         live preview page (preview.html) for Kirsten, plus
+                                         layout checks and check images for Claude
+  notes <post> [--all] [--json]          notes Kirsten left on the preview page
+  resolve <post> <id>...                 mark notes as done
   export <post> [--sizes default|all|ig,fb,...] [--format jpg|png] [--quality 95] [--slides 1,3]
+                                         the final images (only export makes these)
   add-font <post> <family|file|folder> [--family "Name"]
   refresh <post>                         update the post's brand files to this plugin version
   save-template <post> <slide> "<name>" [--id id] [--description "..."]
   copy-template <template> "<new name>"  copy a template into My templates to change it
   example <name> [--title "..."]         make an example post (names: ${exampleNames().join(', ') || 'none'})
-  gallery [--sizes ig,fb] [--out dir]    render every template with sample content
+  gallery [--sizes ig,fb] [--out dir]    every template with sample content, as a preview
+  serve [--port N] | stop-preview        run / stop the preview helper (preview starts it itself)
 
 <post> is a post folder path, or part of its name. <slide> is its number.
 Text values: *word* becomes italic; \\n or a real new line is a line break.
@@ -82,13 +89,16 @@ function print(lines) {
   console.log(Array.isArray(lines) ? lines.join('\n') : lines);
 }
 
-function printRender(result) {
+function renderLines(result) {
   const out = [];
-  for (const s of result.sizes) {
-    out.push(`${s.name}: ${s.files.length} image${s.files.length === 1 ? '' : 's'} in ${s.folder}`);
-    for (const f of s.files) out.push(`  ${path.basename(f.file)}  ${f.width}×${f.height}`);
-    out.push(`  contact sheet: ${s.contactSheet}`);
-  }
+  if (result.mode === 'export') {
+    for (const s of result.sizes) {
+      out.push(`${s.name}: ${s.files.length} image${s.files.length === 1 ? '' : 's'} in ${s.folder}`);
+      for (const f of s.files) out.push(`  ${path.basename(f.file)}  ${f.width}×${f.height}`);
+    }
+    out.push('', 'Check images (for you, Claude; Kirsten uses the exports folders):');
+  } else out.push('Check images (for you, Claude, to look at with Read; not for Kirsten):');
+  for (const s of result.sizes) out.push(`  ${s.name}: ${s.contactSheet}`);
   if (result.problems.length) {
     out.push('', 'Needs attention:');
     out.push(...result.problems.map((p) => `  - ${p}`));
@@ -97,7 +107,7 @@ function printRender(result) {
     out.push('', 'Worth a look:');
     out.push(...result.notes.map((p) => `  - ${p}`));
   }
-  print(out);
+  return out;
 }
 
 function unknownWarning(unknown, fields) {
@@ -129,6 +139,33 @@ function buildExample(name, { title, root } = {}) {
   }
   if (spec.caption) fs.writeFileSync(path.join(dir, 'caption.txt'), spec.caption + '\n');
   return dir;
+}
+
+/** The posts folder a post belongs to (its parent, for posts kept elsewhere). */
+function rootOf(post) {
+  const root = postsRoot();
+  return path.resolve(post).startsWith(root + path.sep) ? root : path.dirname(path.resolve(post));
+}
+
+/** preview: the live page for Kirsten, checks and check images for Claude. Returns lines to print. */
+async function preview(post, opts) {
+  const page = writePreviewPage(post, { sizes: opts.sizes });
+  const lines = [];
+  if (!opts['no-server']) {
+    const root = rootOf(post);
+    const base = await ensureServer(root);
+    if (base) {
+      if (root === postsRoot()) ensureLaunchConfig(root, Number(new URL(base).port));
+      lines.push(`Preview for Kirsten (live; updates by itself and takes her notes): ${previewUrl(base, post, root)}`);
+    } else lines.push(`The live preview helper wouldn't start. The page still works without live updates or notes: ${page}`);
+  } else lines.push(`Preview page: ${page}`);
+  const open = openNotes(post).length;
+  if (open) lines.push(`She has left ${open} note${open === 1 ? '' : 's'}: run notes to read ${open === 1 ? 'it' : 'them'}.`);
+  if (opts['no-check']) return lines;
+  const result = await renderPost(post, { mode: 'preview', sizes: opts.sizes });
+  if (opts.json) return [JSON.stringify(result, null, 2)];
+  if (result.problems.length && opts.strict) process.exitCode = 2;
+  return [...lines, '', ...renderLines(result)];
 }
 
 async function main() {
@@ -216,12 +253,45 @@ async function main() {
       return print(`Removed slide ${s.n} (moved to "removed slides").`);
     }
 
-    case 'preview':
+    case 'preview': {
+      const post = resolvePost(pos[0]);
+      return print(await preview(post, opts));
+    }
+
+    case 'notes': {
+      const post = resolvePost(pos[0]);
+      const notes = opts.all ? readNotes(post) : openNotes(post);
+      if (opts.json) return print(JSON.stringify(notes, null, 2));
+      return print(describeNotes(post, notes));
+    }
+
+    case 'resolve': {
+      const post = resolvePost(pos[0]);
+      if (pos.length < 2) throw new UserError('Which notes? Give their numbers, e.g. resolve <post> 1 2.');
+      const r = setStatus(post, pos.slice(1), opts.withdraw ? 'withdrawn' : 'done');
+      const lines = [r.changed.length ? `Marked done: ${r.changed.map((i) => '#' + i).join(', ')}.` : 'Nothing changed.'];
+      if (r.missing.length) lines.push(`No such note: ${r.missing.map((i) => '#' + i).join(', ')}.`);
+      const left = openNotes(post).length;
+      lines.push(left ? `${left} note${left === 1 ? '' : 's'} still open.` : 'No open notes left.');
+      return print(lines);
+    }
+
+    case 'serve': {
+      const root = opts.root ? path.resolve(opts.root) : postsRoot();
+      const server = await serve({ root, port: Number(opts.port) || 0 });
+      return print(`Preview helper running at http://127.0.0.1:${server.address().port} for ${root}`);
+    }
+
+    case 'stop-preview': {
+      const root = opts.root ? path.resolve(opts.root) : postsRoot();
+      return print((await stopServer(root)) ? 'Preview helper stopped.' : 'No preview helper was running.');
+    }
+
     case 'export': {
       const post = resolvePost(pos[0]);
       const result = await renderPost(post, { mode: cmd, sizes: opts.sizes, format: opts.format, quality: opts.quality, slides: opts.slides });
       if (opts.json) return print(JSON.stringify(result, null, 2));
-      printRender(result);
+      print(renderLines(result));
       if (result.problems.length && opts.strict) process.exitCode = 2;
       return;
     }
@@ -290,16 +360,17 @@ async function main() {
     }
 
     case 'gallery': {
-      const out = path.resolve(opts.out || fs.mkdtempSync(path.join(os.tmpdir(), 'kp-gallery-')));
+      const out = path.resolve(opts.out || path.join(postsRoot(), '.kp', 'gallery'));
+      // The gallery is generated: replace the previous one.
+      const previous = path.join(out, 'gallery Template gallery');
+      if (fs.existsSync(path.join(previous, 'post.json'))) fs.rmSync(previous, { recursive: true });
       const dir = createPost('Template gallery', { root: out, date: 'gallery' });
       const wanted = opts.template ? String(opts.template).split(',') : null;
       for (const t of listTemplates().filter((x) => (wanted ? wanted.includes(x.id) : x.id !== 'blank-canvas'))) {
         const values = samplePhotos(dir, t.sample || {}, [EXAMPLE_PHOTOS, t.dir]);
         addSlide(dir, t.id, { values, tone: opts.tone });
       }
-      const result = await renderPost(dir, { mode: 'preview', sizes: opts.sizes || 'default' });
-      printRender(result);
-      return print(`\nGallery post: ${dir}`);
+      return print([...(await preview(dir, { ...opts, sizes: opts.sizes || 'default' })), '', `Gallery post: ${dir}`]);
     }
 
     default:

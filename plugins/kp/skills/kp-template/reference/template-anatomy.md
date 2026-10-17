@@ -93,6 +93,6 @@ Tokens: `--tone-bg`, `--tone-ink`, `--tone-soft`, `--kp-ink`,
 ## Checking it
 
 `gallery --template <id> --sizes all` renders the template with its
-`sample` content at every size. Read the contact sheets. Then try the
+`sample` content at every size. Read the check images it lists. Then try the
 extremes in a scratch post (very short and very long words, landscape and
 portrait photos) and fix anything that breaks.

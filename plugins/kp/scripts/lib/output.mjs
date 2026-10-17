@@ -6,6 +6,8 @@ import { resolveSizes, withBrowser, renderSlide, screenshotPage, describeReport,
 import { imageSize } from './image-size.mjs';
 
 const MANIFEST = '.kp-export.json';
+/** Claude's own check images: hidden, never shown to Kirsten as the preview. */
+export const CHECK_DIR = '.check';
 
 export function exportName(slug, n, total, ext) {
   return total === 1 ? `${slug}.${ext}` : `${slug}-${String(n).padStart(2, '0')}.${ext}`;
@@ -20,8 +22,9 @@ function pickSlides(postDir, only) {
 }
 
 /**
- * Render slides. mode 'preview' writes previews/<folder>/NN.jpg and a contact sheet;
- * mode 'export' writes exports/<folder>/<slug>-NN.<ext>, replacing the previous export.
+ * Render slides. mode 'preview' (a check) writes .check/<folder>/NN.jpg and a contact
+ * sheet, for Claude to look at; mode 'export' writes the final
+ * exports/<folder>/<slug>-NN.<ext>, replacing the previous export.
  */
 export async function renderPost(postDir, { mode = 'preview', sizes, format, quality, slides: only } = {}) {
   const info = postInfo(postDir);
@@ -33,7 +36,7 @@ export async function renderPost(postDir, { mode = 'preview', sizes, format, qua
 
   await withBrowser(async (browser) => {
     for (const size of sizeList) {
-      const base = path.join(postDir, mode === 'export' ? 'exports' : 'previews', size.folder);
+      const base = path.join(postDir, mode === 'export' ? 'exports' : CHECK_DIR, size.folder);
       fs.mkdirSync(base, { recursive: true });
       // An export replaces the previous one, so removed slides don't linger.
       if (mode === 'export' && !only) {
@@ -63,7 +66,7 @@ export async function renderPost(postDir, { mode = 'preview', sizes, format, qua
         const names = [...new Set([...keep, ...files.map((f) => path.basename(f.file))])].sort();
         fs.writeFileSync(manifestFile, JSON.stringify({ files: names, size: size.id }, null, 2) + '\n');
       }
-      const sheet = path.join(postDir, 'previews', `${size.folder} contact sheet.jpg`);
+      const sheet = path.join(postDir, CHECK_DIR, `${size.folder}${mode === 'export' ? ' export' : ''} contact sheet.jpg`);
       await contactSheet(browser, files.map((f) => f.file), sheet, `${info.title}: ${size.name}`);
       result.sizes.push({ id: size.id, name: size.name, folder: base, contactSheet: sheet, files });
     }

@@ -8,6 +8,7 @@ import {
 } from './paths.mjs';
 import { CORE_FONT_DIRS, addFontToPost } from './fonts.mjs';
 import { findTemplate, fillHtml, slideFields } from './templates.mjs';
+import { renameSlidesInNotes } from './notes.mjs';
 
 export const PHOTO_EXT = /\.(jpe?g|png|webp|gif|avif)$/i;
 const CONVERT_EXT = /\.(heic|heif|tiff?)$/i;
@@ -21,7 +22,8 @@ kp-post skill in Claude.
 Inside a post folder:
   photos/     the photos used in the post (copies; your originals are untouched)
   slides/     one web page per slide; Claude edits these
-  previews/   quick check images and a contact sheet
+  preview.html  the live preview: open it to see every slide, and leave notes for Claude
+  notes.json    the notes you left on the preview
   exports/    the finished images to upload, in one folder per platform
   _kp/        the brand styles and fonts this post was made with
 
@@ -38,7 +40,9 @@ This folder holds Kirsten Photography's social media posts, one folder per
 post, made with the **kp** plugin. Kirsten isn't technical: talk about
 photos, words, colours and slides, not code, and use British English.
 
-- To make, change or export a post, use the **kp-post** skill.
+- To make, change, preview or export a post, use the **kp-post** skill. If
+  she says she's left notes, they're on a post's preview page: read them
+  with the kp-post skill's notes command.
 - For reusable layouts ("save this as a template"), use **kp-template**.
 - For set-up, errors, "where are my posts" or "what can you do", use
   **kp-help**.
@@ -100,7 +104,7 @@ export function createPost(title, { date = today(), root = postsRoot() } = {}) {
   let n = 2;
   while (fs.existsSync(path.join(root, name))) name = `${date} ${clean} (${n++})`;
   const dir = path.join(root, name);
-  for (const d of ['photos', 'slides', 'previews', 'exports']) fs.mkdirSync(path.join(dir, d), { recursive: true });
+  for (const d of ['photos', 'slides', 'exports']) fs.mkdirSync(path.join(dir, d), { recursive: true });
   installBrand(dir);
   writeJson(path.join(dir, 'post.json'), {
     title: clean,
@@ -143,7 +147,15 @@ function renumber(postDir, ordered) {
     fs.renameSync(s.file, tmp);
     return { tmp, template: s.template };
   });
-  temps.forEach((t, i) => fs.renameSync(t.tmp, path.join(dir, `${String(i + 1).padStart(2, '0')}-${t.template}.html`)));
+  const map = {};
+  temps.forEach((t, i) => {
+    const name = `${String(i + 1).padStart(2, '0')}-${t.template}.html`;
+    fs.renameSync(t.tmp, path.join(dir, name));
+    map[`slides/${ordered[i].name}`] = `slides/${name}`;
+  });
+  // Notes left on the preview page follow their slide.
+  for (const k of Object.keys(map)) if (map[k] === k) delete map[k];
+  renameSlidesInNotes(postDir, map);
 }
 
 /** Turn a photo value into a src relative to the slide, copying outside files into photos/. */
@@ -239,6 +251,7 @@ export function removeSlide(postDir, n) {
   fs.mkdirSync(bin, { recursive: true });
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
   fs.renameSync(s.file, path.join(bin, `${stamp}-${s.name}`));
+  renameSlidesInNotes(postDir, { [`slides/${s.name}`]: `removed slides/${stamp}-${s.name}` });
   renumber(postDir, listSlides(postDir));
   return s;
 }

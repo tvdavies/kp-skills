@@ -2,7 +2,12 @@
 
 Prefer the simplest change that does what she asked: a field value first
 (`fill`), then the photo focus or tone, and only then editing the slide's
-HTML/CSS. Preview after each round and look at the result.
+HTML/CSS. After each round, run `preview` for the checks and Read the check
+images; her preview page updates by itself.
+
+When the request comes from a note on the preview page, `field` names the
+`data-field` she pointed at; a `selector` locates anything else in the
+slide file.
 
 ## Common requests
 
@@ -48,7 +53,7 @@ page. Use the Read and Edit tools on it. Its parts:
 
 - Measurements are design pixels on a slide 1080 wide. The height depends on
   the size: 1350 (Instagram 4:5) or 1080 (Facebook square). One slide file
-  makes every size, so check both contact sheets after a layout change.
+  makes every size, so check both sizes' check images after a layout change.
 - Anchor things near the bottom with `bottom:` so they stay put in both
   sizes. For a size-specific tweak, prefix the rule with
   `html[data-aspect="square"]` (or `four-five`, `three-four`,
@@ -67,7 +72,7 @@ page. Use the Read and Edit tools on it. Its parts:
 
 ## Looking at the result
 
-`preview` prints problems and the contact sheet paths. Always Read the
-contact sheet images and check them with your own eyes before telling
+`preview` prints problems and the check image paths (in the post's hidden
+`.check` folder). Always Read the check images and look at them yourself before telling
 Kirsten it's done: faces, crops, readability, spacing, and that nothing new
 overlaps. If a change looks worse, say so and offer to put it back.

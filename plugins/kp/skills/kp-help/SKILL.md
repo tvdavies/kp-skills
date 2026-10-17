@@ -38,7 +38,11 @@ folder", "the check".
   she asks.
 - Save a layout she likes as her own template, or ask for a new one
   (kp-template).
-- See all the templates: run `gallery` and open its contact sheet.
+- Watch the post change as Claude works, in a live preview page, and point
+  at things on it to leave notes (**Comment**), instead of describing where
+  they are.
+- See all the templates: run `gallery` and show her the preview address it
+  prints.
 
 ## Where things are
 
@@ -49,6 +53,9 @@ folder", "the check".
   `~/Pictures/KP Posts/My fonts` (she can drop .ttf/.otf files there).
 - The renderer: `~/.kp-skills/runtime`. Safe to delete; the set-up
   reinstalls it.
+- Each post's `preview.html` is the live preview, and `notes.json` holds
+  her notes. The preview helper's details are in `KP Posts/.kp` and
+  `KP Posts/.claude/launch.json` (both managed by the plugin).
 
 ## Fixing problems
 
@@ -59,6 +66,9 @@ folder", "the check".
 | "The renderer's browser wouldn't start" | Run the set-up. If it still fails, run the check and pass its output to Tom. |
 | A slide "never finished loading" | Its HTML was broken by an edit. Undo the last change to that slide, or `refresh` the post. |
 | Fonts look wrong / "font isn't available" | `add-font` the family to that post, or `refresh` the post. |
+| The preview page says "Not live" | The preview helper stopped (it stops after four idle hours). Run `preview` on the post again; the page reconnects by itself. |
+| The Browser pane won't show the preview | `open "<address>"` opens it in her default browser instead; everything works the same there. |
+| The preview page is blank or out of date | Run `preview` on the post again. If it's still wrong, `stop-preview`, then `preview`. |
 | Text cut off or overlapping | `preview` the post and read its problem list; usually shorter words or a smaller `data-fit` minimum. |
 | An old post looks different after an update | It shouldn't: each post keeps its own brand files. If she wants the new look, `refresh` that post, then preview. |
 | Claude keeps asking permission to run commands | When it asks to run a `node .../kp.mjs` command, choose the option to always allow it; it won't ask again for those. |

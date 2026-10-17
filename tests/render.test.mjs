@@ -15,22 +15,26 @@ const listJpgs = (dir) => fs.readdirSync(dir).filter((f) => /\.(jpg|png)$/.test(
 
 test('every template renders at every size with exact dimensions and no problems', { skip, timeout: 240000 }, () => {
   const root = tempPosts();
-  const out = kp(root, 'gallery', '--out', root, '--sizes', 'all');
+  const out = kp(root, 'gallery', '--out', root, '--sizes', 'all', '--no-server');
   assert.match(out, /All slides rendered cleanly/, out);
   const post = path.join(root, 'gallery Template gallery');
   const sizes = JSON.parse(fs.readFileSync(path.join(PLUGIN, 'sizes.json'), 'utf8')).sizes;
   const count = fs.readdirSync(path.join(post, 'slides')).length;
   assert.ok(count >= 9);
   for (const s of sizes) {
-    const dir = path.join(post, 'previews', s.folder);
+    const dir = path.join(post, '.check', s.folder);
     const files = listJpgs(dir);
     assert.equal(files.length, count, s.id);
     for (const f of files) {
       const d = imageSize(path.join(dir, f));
       assert.deepEqual([d.width, d.height], [s.width, s.height], `${s.id} ${f}`);
     }
-    assert.ok(fs.existsSync(path.join(post, 'previews', `${s.folder} contact sheet.jpg`)));
+    assert.ok(fs.existsSync(path.join(post, '.check', `${s.folder} contact sheet.jpg`)));
   }
+  // Kirsten's preview is the live page; check images stay hidden and nothing is exported.
+  assert.ok(fs.existsSync(path.join(post, 'preview.html')));
+  assert.ok(!fs.existsSync(path.join(post, 'previews')));
+  assert.deepEqual(fs.readdirSync(path.join(post, 'exports')), []);
 });
 
 test('exports go to Instagram and Facebook folders with carousel names, replacing old exports', { skip, timeout: 120000 }, () => {
@@ -80,7 +84,7 @@ test('problems are reported in plain English: missing photo, text too long, inte
   // Someone pastes in a web font: it must be blocked and reported, not fetched.
   const slide = path.join(post, 'slides', '01-hero-quote.html');
   fs.writeFileSync(slide, fs.readFileSync(slide, 'utf8').replace('</head>', '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter">\n</head>'));
-  const out = kp(root, 'preview', post);
+  const out = kp(root, 'preview', post, '--no-server');
   assert.match(out, /Slide 1.*photo "photo" is missing/);
   assert.match(out, /Slide 1.*blocked a request to the internet/);
   assert.match(out, /Slide 2.*"quote" doesn't fit/);
@@ -105,7 +109,7 @@ test('slides can be added, filled, moved and duplicated', { skip, timeout: 60000
   assert.equal(fields.quote, 'Really *lovely*.');
   assert.equal(fields.stars, '4');
   assert.equal(show.slides[1].fields.find((f) => f.key === 'photo').value, '../photos/baby-s-feet.jpg');
-  const out = kp(root, 'preview', post);
+  const out = kp(root, 'preview', post, '--no-server');
   assert.match(out, /All slides rendered cleanly/, out);
 });
 
@@ -119,7 +123,7 @@ test('fonts can be added to a post and Kirsten can save her own templates', { sk
   kp(root, 'add', post, 'review-card', '--set', 'quote=Hello', '--set', 'name=Sam');
   const slide = path.join(post, 'slides', '01-review-card.html');
   fs.writeFileSync(slide, fs.readFileSync(slide, 'utf8').replace('</style>', '.review-card .quote { font-family: "Playfair Display"; }\n</style>'));
-  const out = kp(root, 'preview', post);
+  const out = kp(root, 'preview', post, '--no-server');
   assert.match(out, /All slides rendered cleanly/, out);
 
   assert.match(kp(root, 'save-template', post, '1', 'Playfair review'), /Saved as "Playfair review" \(playfair-review\)/);
@@ -131,10 +135,10 @@ test('fonts can be added to a post and Kirsten can save her own templates', { sk
   // A post made from the saved template gets the extra font automatically.
   const post2 = kp(root, 'new', 'Uses my template');
   kp(root, 'add', post2, 'playfair-review');
-  assert.match(kp(root, 'preview', post2), /All slides rendered cleanly/);
+  assert.match(kp(root, 'preview', post2, '--no-server'), /All slides rendered cleanly/);
   // Without the font, the renderer says so.
   fs.writeFileSync(path.join(post2, '_kp', 'fonts-extra.css'), '');
-  assert.match(kp(root, 'preview', post2), /font "Playfair Display" isn't available/);
+  assert.match(kp(root, 'preview', post2, '--no-server'), /font "Playfair Display" isn't available/);
 });
 
 test('doctor passes', { skip, timeout: 120000 }, () => {
