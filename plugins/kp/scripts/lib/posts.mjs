@@ -29,7 +29,48 @@ My templates/  your own templates. They survive plugin updates.
 My fonts/      font files you want to use. Drop .ttf or .otf files in here.
 `;
 
-/** Make sure the posts folder exists, with its marker and the My folders. */
+const CLAUDE_BEGIN = '<!-- kp-skills: begin (this part is updated by the kp plugin) -->';
+const CLAUDE_END = '<!-- kp-skills: end -->';
+const CLAUDE_BLOCK = `${CLAUDE_BEGIN}
+# KP Posts
+
+This folder holds Kirsten Photography's social media posts, one folder per
+post, made with the **kp** plugin. Kirsten isn't technical: talk about
+photos, words, colours and slides, not code, and use British English.
+
+- To make, change or export a post, use the **kp-post** skill.
+- For reusable layouts ("save this as a template"), use **kp-template**.
+- For set-up, errors, "where are my posts" or "what can you do", use
+  **kp-help**.
+- Run the kp tool as the skills describe; don't hand-make images another way.
+- Never delete posts, photos, templates or fonts. Removed slides go to the
+  post's "removed slides" folder.
+- Default exports are Instagram 4:5 (1080×1350) and Facebook square
+  (1080×1080); make other sizes only when she asks.
+- No social handles on images; they go in the caption.
+- Brand-wide change requests (new colour, new default font): note them in
+  "Brand requests.md" in this folder for Tom.
+${CLAUDE_END}`;
+
+/** Write or refresh the managed part of the posts folder's CLAUDE.md, keeping anything else in it. */
+export function ensureClaudeMd(root) {
+  const file = path.join(root, 'CLAUDE.md');
+  if (!fs.existsSync(file)) {
+    fs.writeFileSync(file, `${CLAUDE_BLOCK}\n\n# Kirsten's notes\n\nAnything written below here is kept when the plugin updates.\n`);
+    return 'created';
+  }
+  const text = fs.readFileSync(file, 'utf8');
+  const start = text.indexOf(CLAUDE_BEGIN);
+  const end = text.indexOf(CLAUDE_END);
+  let next;
+  if (start !== -1 && end > start) next = text.slice(0, start) + CLAUDE_BLOCK + text.slice(end + CLAUDE_END.length);
+  else next = `${CLAUDE_BLOCK}\n\n${text}`;
+  if (next === text) return 'unchanged';
+  fs.writeFileSync(file, next);
+  return 'updated';
+}
+
+/** Make sure the posts folder exists, with its marker, CLAUDE.md and the My folders. */
 export function ensurePostsRoot(root = postsRoot()) {
   fs.mkdirSync(root, { recursive: true });
   const marker = path.join(root, POSTS_MARKER);
@@ -37,6 +78,7 @@ export function ensurePostsRoot(root = postsRoot()) {
   for (const d of [MY_TEMPLATES, MY_FONTS]) fs.mkdirSync(path.join(root, d), { recursive: true });
   const readme = path.join(root, 'READ ME.txt');
   if (!fs.existsSync(readme)) fs.writeFileSync(readme, POSTS_README);
+  ensureClaudeMd(root);
   return root;
 }
 

@@ -164,3 +164,25 @@ test('marketplace and plugin manifests agree', () => {
   assert.equal(path.resolve(PLUGIN, '..', '..', entry.source), PLUGIN);
   assert.match(plugin.version, /^\d+\.\d+\.\d+$/);
 });
+
+test('the posts folder CLAUDE.md is created, then refreshed without losing her notes', async () => {
+  const os = await import('node:os');
+  const { ensurePostsRoot, ensureClaudeMd } = await import('../plugins/kp/scripts/lib/posts.mjs');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'kp-claudemd-'));
+  ensurePostsRoot(root);
+  const file = path.join(root, 'CLAUDE.md');
+  const first = fs.readFileSync(file, 'utf8');
+  assert.match(first, /kp-post/);
+  assert.equal(ensureClaudeMd(root), 'unchanged');
+  // Her own note survives a refresh; an old managed block is replaced.
+  fs.writeFileSync(file, first.replace('# KP Posts', '# Old wording') + '\nAlways use sage for reviews.\n');
+  assert.equal(ensureClaudeMd(root), 'updated');
+  const after = fs.readFileSync(file, 'utf8');
+  assert.match(after, /Always use sage for reviews/);
+  assert.doesNotMatch(after, /Old wording/);
+  // A CLAUDE.md she wrote herself gets the block added on top.
+  fs.writeFileSync(file, 'My own notes\n');
+  ensureClaudeMd(root);
+  assert.match(fs.readFileSync(file, 'utf8'), /kp-skills: begin[\s\S]*My own notes/);
+  fs.rmSync(root, { recursive: true });
+});

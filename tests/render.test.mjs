@@ -127,9 +127,13 @@ test('fonts can be added to a post and Kirsten can save her own templates', { sk
   const mine = list.find((t) => t.id === 'playfair-review');
   assert.equal(mine.source, 'mine');
   assert.ok(mine.fields.some((f) => f.key === 'quote'));
-  // A template that needs a font other than the brand fonts says so when the font is missing.
+  assert.deepEqual(mine.fonts, ['Playfair Display']);
+  // A post made from the saved template gets the extra font automatically.
   const post2 = kp(root, 'new', 'Uses my template');
   kp(root, 'add', post2, 'playfair-review');
+  assert.match(kp(root, 'preview', post2), /All slides rendered cleanly/);
+  // Without the font, the renderer says so.
+  fs.writeFileSync(path.join(post2, '_kp', 'fonts-extra.css'), '');
   assert.match(kp(root, 'preview', post2), /font "Playfair Display" isn't available/);
 });
 
